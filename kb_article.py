@@ -34,9 +34,10 @@ with sync_playwright() as p:
                 playwrightmodel.click_element(playwrightmodel.xpath_to_css("//div[@class='now-modal-footer']//button[@class='now-button']//span:text('Impersonate user')"))
 
 
+
                 for anumber in range(len(articles_list)):
                     page.goto(f"{url}esc?id=kb_article&sysparm_article={articles_list[anumber]}")
-                    # page.wait_for_timeout(2000)
+                    page.wait_for_timeout(1000)
                     if playwrightmodel.isElementPresent(locator="//h1[contains(@class,'widget-header')]"):
 
                         print(f"{user_list[impersonate_user]} can view arcticle: {articles_list[anumber]}")
