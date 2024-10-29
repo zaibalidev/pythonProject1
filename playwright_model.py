@@ -48,11 +48,11 @@ class Util_playwright():
 
 
                 objHtml = self.page.query_selector(
-                    "macroponent-f51912f4c700201072b211d4d8c26010 button.user-menu-button.unimpersonate")
-                if self.isQueryElementPresent("macroponent-f51912f4c700201072b211d4d8c26010 button.user-menu-button.unimpersonate"):
+                    "body button.user-menu-button.unimpersonate")
+                if self.isQueryElementPresent("body button.user-menu-button.unimpersonate"):
                     objHtml.click()
                 else:
-                    self.page.query_selector("macroponent-f51912f4c700201072b211d4d8c26010 div.now-modal-footer button slot span.now-line-height-crop").click()
+                    self.page.query_selector("body div.now-modal-footer button slot span.now-line-height-crop").click()
         except PlaywrightTimeoutError as ex:
             print("Impersonated time out error")
     def isPortalImpersonated(self,user):
