@@ -35,13 +35,13 @@ class Util_playwright():
     def snImpersonatedUser(self,user_name=""):
         try:
 
-            avatar_button = "macroponent-f51912f4c700201072b211d4d8c26010 div.header-avatar-button"
+            avatar_button = "body div.header-avatar-button"
             if self.isQueryElementPresent(avatar_button,_timeout=1_0000):
                 self.page.query_selector(avatar_button).click()
             if user_name:
-                xpath="macroponent-f51912f4c700201072b211d4d8c26010 button.user-menu-button.impersonateUser.keyboard-navigatable.polaris-enabled"
-                if self.isQueryElementPresent("macroponent-f51912f4c700201072b211d4d8c26010 button.user-menu-button.impersonateUser.keyboard-navigatable.polaris-enabled",_timeout=5_00):
-                    objHtml=self.page.query_selector("macroponent-f51912f4c700201072b211d4d8c26010 button.user-menu-button.impersonateUser.keyboard-navigatable.polaris-enabled")
+                xpath="body button.user-menu-button.impersonateUser.keyboard-navigatable.polaris-enabled"
+                if self.isQueryElementPresent("body button.user-menu-button.impersonateUser.keyboard-navigatable.polaris-enabled",_timeout=5_00):
+                    objHtml=self.page.query_selector("body button.user-menu-button.impersonateUser.keyboard-navigatable.polaris-enabled")
 
                     objHtml.click()
             else:
