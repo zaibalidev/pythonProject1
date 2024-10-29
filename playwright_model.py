@@ -231,6 +231,7 @@ class Util_playwright():
             txt_login.fill(credentials.sn_user_name)
             txt_pwd.fill(credentials.sn_user_pwd)
 
+
             if self.isElementsPresent("//button[text()='Log in']",5_00):
                 self.click_element("//button[text()='Log in']")
 
