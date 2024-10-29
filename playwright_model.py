@@ -109,6 +109,8 @@ class Util_playwright():
             # Try to locate the element using Playwright's locator system
 
             element = self.page.locator(locator)
+            if minimize_wait:
+                element.wait_for(state="visible",timeout=3000)
 
             # Check if the element is present and visible (using `.is_visible()` method)
             if element.count():
@@ -120,8 +122,8 @@ class Util_playwright():
             # Log(LogType.ERROR, f"isElementPresent: Error: {str(ex)}")
             return_val = False
 
-        if minimize_wait:
-            self.normalize_wait()
+        #if minimize_wait:
+            #self.normalize_wait()
 
         return return_val
 

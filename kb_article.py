@@ -1,4 +1,5 @@
 import time
+from tkinter.ttk import Treeview
 
 from playwright_model import Util_playwright
 
@@ -34,13 +35,14 @@ with sync_playwright() as p:
                 print(playwrightmodel.xpath_to_css(strPrint))
                 playwrightmodel.click_element(locator=strPrint,loca_type="cspath")
                 playwrightmodel.click_element(locator=f"//div[@class='now-modal-footer']//button[@class='now-button']//span:text('Impersonate user')",loca_type="cspath")
-                playwrightmodel.isQueryElementPresent(playwrightmodel.xpath_to_css("//sn-polaris-header//div[@class='polaris-header-logo']"),_timeout=5000)
+                isExist=playwrightmodel.isQueryElementPresent(playwrightmodel.xpath_to_css("//sn-polaris-header//div[@class='polaris-header-logo']"),_timeout=1000)
 
 
                 for anumber in range(len(articles_list)):
+                    page.wait_for_timeout(2000)
                     page.goto(f"{url}esc?id=kb_article&sysparm_article={articles_list[anumber]}",wait_until="load")
 
-                    if playwrightmodel.isElementPresent(locator="//h1[contains(@class,'widget-header')]"):
+                    if playwrightmodel.isElementPresent(locator="//h1[contains(@class,'widget-header')]",minimize_wait=True):
 
                         print(f"{user_list[impersonate_user]} can view arcticle: {articles_list[anumber]}")
 
