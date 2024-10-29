@@ -30,8 +30,8 @@ with sync_playwright() as p:
                 strPrint=f"//seismic-hoist mark:text('{user_list[impersonate_user]}')"
 
                 print(playwrightmodel.xpath_to_css(strPrint))
-                playwrightmodel.click_element(playwrightmodel.xpath_to_css(strPrint))
-                playwrightmodel.click_element(playwrightmodel.xpath_to_css("//div[@class='now-modal-footer']//button[@class='now-button']//span:text('Impersonate user')"))
+                playwrightmodel.click_element(locator=strPrint,loca_type="cspath")
+                playwrightmodel.click_element(locator=f"//div[@class='now-modal-footer']//button[@class='now-button']//span:text('Impersonate user')",loca_type="cspath")
 
 
 

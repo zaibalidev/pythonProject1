@@ -128,12 +128,38 @@ class Util_playwright():
     def take_screenshot_and_upload(self, logIt=True):
         # Implement your screenshot logic here
         pass
+    def xpath_to_css(self,xpath):
+        # Basic replacement for XPath to CSS conversion
+        xpath = xpath.strip()
 
+        # Replace `//` with direct descendant or any descendant selector
+        xpath = re.sub(r'^//', '', xpath)  # Remove starting `//`
+        # xpath = re.sub(r'/', ' > ', xpath)  # Replace `/` with direct child selector
+        xpath = re.sub(r'/', ' ', xpath)  # Replace `/` with direct child selector
+
+        # Replace `[@id="value"]` with `#value`
+        xpath = re.sub(r'\[@id=["\']([^"\']+)["\']\]', r'#\1', xpath)
+
+        # Replace `[@class="value"]` with `.value`
+        xpath = re.sub(r'\[@class=["\']([^"\']+)["\']\]', r'.\1', xpath)
+
+        # Replace `[@attribute="value"]` with `[attribute="value"]`
+        xpath = re.sub(r'\[@([^\]]+)=[\"\']?([^\"\']+)[\"\']?\]', r'[\1="\2"]', xpath)
+
+        # Convert `[text()='value']` to `:contains(value)` (CSS can't match text directly)
+        xpath = re.sub(r'\[text\(\)=["\']([^"\']+)["\']\]', r':contains("\1")', xpath)
+
+        # Remove remaining brackets and text() functions (which CSS doesn't support)
+        xpath = re.sub(r'text\(\)', '', xpath)
+
+        return xpath.strip()
     def click_element(self, locator, loca_type='xpath', is_retriggered=False):
         try:
             # Select the element based on the locator type
             if loca_type == 'xpath':
                 element = self.page.locator(locator)
+            elif loca_type=="cspath":
+                element= self.page.locator(self.xpath_to_css(locator))
             else:
                 # Handle other locator types if necessary
                 raise ValueError("Unsupported locator type")
