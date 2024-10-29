@@ -99,8 +99,8 @@ class Util_playwright():
             #Log(LogType.ERROR, f"isElementsPresent: Error: {str(ex)}")
             return False
     def isElementPresent(self, locator, loca_type='xpath', minimize_wait=False):
-        if minimize_wait:
-            self.minimize_wait()
+        #if minimize_wait:
+           # self.minimize_wait()
 
         return_val = False
 

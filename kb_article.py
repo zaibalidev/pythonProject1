@@ -6,17 +6,18 @@ import credentials
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 
 with sync_playwright() as p:
-
+    objRecords=[
+        {"user":"Zaib","art":"KBC100"}]
     user_list=["hr.agent.usa","abel.tuter","3433434343"]
     articles_list=["KB0000028","KB0000025"]
     browser = p.chromium.launch(headless=False,slow_mo=800)
-    context = browser.new_context(
-        record_video_dir="videos/",  # Directory to save the recorded video
-        record_video_size={"width": 1280, "height": 720}  # Set desired video resolution
-    )
+   # context = browser.new_context(
+   #     record_video_dir="videos/",  # Directory to save the recorded video
+    #    record_video_size={"width": 1280, "height": 720}  # Set desired video resolution
+    #)
 
-    page = context.new_page()
-
+    # page = context.new_page()
+    page=browser.new_page()
     url = "https://net2appsdemo3.service-now.com/"
     try:
         page.goto(url)
@@ -26,11 +27,15 @@ with sync_playwright() as p:
         for impersonate_user in range(len(user_list)):
             if playwrightmodel.isImpersonated(user_list[impersonate_user]):
 
-                playwrightmodel.queryElementClick(f"seismic-hoist mark:text('{user_list[impersonate_user]}')")
-                playwrightmodel.queryElementClick("div.now-modal-footer button.now-button.-primary.-md")
+                strPrint=f"//seismic-hoist mark:text('{user_list[impersonate_user]}')"
+
+                print(playwrightmodel.xpath_to_css(strPrint))
+                playwrightmodel.click_element(playwrightmodel.xpath_to_css(strPrint))
+                playwrightmodel.click_element(playwrightmodel.xpath_to_css("//div[@class='now-modal-footer']//button[@class='now-button']//span:text('Impersonate user')"))
+
 
                 for anumber in range(len(articles_list)):
-                    page.goto(f"https://net2appsdemo3.service-now.com/esc?id=kb_article&sysparm_article={articles_list[anumber]}")
+                    page.goto(f"{url}esc?id=kb_article&sysparm_article={articles_list[anumber]}")
                     # page.wait_for_timeout(2000)
                     if playwrightmodel.isElementPresent(locator="//h1[contains(@class,'widget-header')]"):
 
@@ -42,10 +47,12 @@ with sync_playwright() as p:
                     page.goto(f"{url}/now/nav/ui/home")
             else:
                 print(f"user not found {user_list[impersonate_user]}")
-                page.goto(f"{url}/now/nav/ui/home")
+                page.get_by_role("button",name="Cancel").click()
+                playwrightmodel.snImpersonatedUser(user_list[impersonate_user])
+                # page.goto(f"{url}/now/nav/ui/home")
     except PlaywrightTimeoutError:
-        ("Playwright timeout error")
-    context.close()
+        print("Playwright timeout error")
+
     browser.close()
 
 

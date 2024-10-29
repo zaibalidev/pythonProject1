@@ -23,3 +23,5 @@ with sync_playwright() as playwright:
     #url="https://www.scrapethissite.com/pages/ajax-javascript/"
     #print(f"..Page loaded in {round(time_taken,2)}s")
     #browser.close()
+
+    

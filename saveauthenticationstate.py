@@ -20,7 +20,7 @@ with sync_playwright() as playwright:
     button1 = page.get_by_role("button", name="Next")
     button1.click()
     page.pause()
-
+    page.get_by_role("fdfd",name="dfdfd").visi
     # save authentication state
     ctx.storage_state(
         path="playwright/.auth/storage_stage.json"
