@@ -39,7 +39,7 @@ with sync_playwright() as p:
 
 
                 for anumber in range(len(articles_list)):
-                    page.wait_for_timeout(2000)
+                    page.wait_for_timeout(3000)
                     page.goto(f"{url}esc?id=kb_article&sysparm_article={articles_list[anumber]}",wait_until="load")
 
                     if playwrightmodel.isElementPresent(locator="//h1[contains(@class,'widget-header')]",minimize_wait=True):
