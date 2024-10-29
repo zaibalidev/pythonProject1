@@ -23,21 +23,21 @@ with sync_playwright() as p:
         page.goto(url)
         playwrightmodel = Util_playwright(page)
         playwrightmodel.serviceNowLogin(sn_user_name,sn_user_pwd)
-        page.wait_for_timeout(7000)
+        page.wait_for_timeout(10000)
         for impersonate_user in range(len(user_list)):
             if playwrightmodel.isImpersonated(user_list[impersonate_user]):
 
                 strPrint=f"//seismic-hoist mark:text('{user_list[impersonate_user]}')"
 
                 print(playwrightmodel.xpath_to_css(strPrint))
-                playwrightmodel.click_element(playwrightmodel.xpath_to_css(strPrint))
-                playwrightmodel.click_element(playwrightmodel.xpath_to_css("//div[@class='now-modal-footer']//button[@class='now-button']//span:text('Impersonate user')"))
+                playwrightmodel.click_element(locator=strPrint,loca_type="cspath")
+                playwrightmodel.click_element(locator=f"//div[@class='now-modal-footer']//button[@class='now-button']//span:text('Impersonate user')",loca_type="cspath")
 
 
 
                 for anumber in range(len(articles_list)):
                     page.goto(f"{url}esc?id=kb_article&sysparm_article={articles_list[anumber]}")
-                    page.wait_for_timeout(1000)
+                    page.wait_for_timeout(4000)
                     if playwrightmodel.isElementPresent(locator="//h1[contains(@class,'widget-header')]"):
 
                         print(f"{user_list[impersonate_user]} can view arcticle: {articles_list[anumber]}")
