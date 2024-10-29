@@ -43,7 +43,7 @@ with sync_playwright() as p:
 
                     else:
                         print("user has no permissions")
-                    playwrightmodel.take_screenshot_and_save(folder_path="./screenshots",file_name=f"{articles_list[anumber]}_{user_list[impersonate_user]}.png")
+                    # playwrightmodel.take_screenshot_and_save(folder_path="./screenshots",file_name=f"{articles_list[anumber]}_{user_list[impersonate_user]}.png")
                     page.goto(f"{url}/now/nav/ui/home")
             else:
                 print(f"user not found {user_list[impersonate_user]}")
