@@ -23,7 +23,7 @@ with sync_playwright() as p:
         page.goto(url)
         playwrightmodel = Util_playwright(page)
         playwrightmodel.serviceNowLogin(sn_user_name,sn_user_pwd)
-        page.wait_for_timeout(7000)
+        page.wait_for_timeout(10000)
         for impersonate_user in range(len(user_list)):
             if playwrightmodel.isImpersonated(user_list[impersonate_user]):
 
@@ -37,7 +37,7 @@ with sync_playwright() as p:
 
                 for anumber in range(len(articles_list)):
                     page.goto(f"{url}esc?id=kb_article&sysparm_article={articles_list[anumber]}")
-                    page.wait_for_timeout(1000)
+                    page.wait_for_timeout(4000)
                     if playwrightmodel.isElementPresent(locator="//h1[contains(@class,'widget-header')]"):
 
                         print(f"{user_list[impersonate_user]} can view arcticle: {articles_list[anumber]}")
