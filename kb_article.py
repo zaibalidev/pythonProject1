@@ -1,3 +1,5 @@
+import time
+
 from playwright_model import Util_playwright
 
 from playwright.sync_api import sync_playwright
@@ -32,12 +34,12 @@ with sync_playwright() as p:
                 print(playwrightmodel.xpath_to_css(strPrint))
                 playwrightmodel.click_element(locator=strPrint,loca_type="cspath")
                 playwrightmodel.click_element(locator=f"//div[@class='now-modal-footer']//button[@class='now-button']//span:text('Impersonate user')",loca_type="cspath")
-
+                playwrightmodel.isQueryElementPresent(playwrightmodel.xpath_to_css("//sn-polaris-header//div[@class='polaris-header-logo']"),_timeout=5000)
 
 
                 for anumber in range(len(articles_list)):
-                    page.goto(f"{url}esc?id=kb_article&sysparm_article={articles_list[anumber]}")
-                    page.wait_for_timeout(4000)
+                    page.goto(f"{url}esc?id=kb_article&sysparm_article={articles_list[anumber]}",wait_until="load")
+
                     if playwrightmodel.isElementPresent(locator="//h1[contains(@class,'widget-header')]"):
 
                         print(f"{user_list[impersonate_user]} can view arcticle: {articles_list[anumber]}")
@@ -45,7 +47,7 @@ with sync_playwright() as p:
                     else:
                         print("user has no permissions")
                     # playwrightmodel.take_screenshot_and_save(folder_path="./screenshots",file_name=f"{articles_list[anumber]}_{user_list[impersonate_user]}.png")
-                    page.goto(f"{url}/now/nav/ui/home")
+                    page.goto(f"{url}/now/nav/ui/home",wait_until="load")
             else:
                 print(f"user not found {user_list[impersonate_user]}")
                 page.get_by_role("button",name="Cancel").click()
