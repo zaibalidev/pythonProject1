@@ -225,15 +225,7 @@ class Util_playwright():
         xpath = re.sub(r'text\(\)', '', xpath)
 
         return xpath.strip()
-    def serviceNowLogin(self,user_name,pwd):
-            txt_login = self.page.locator("id=user_name")
-            txt_pwd = self.page.locator("id=user_password")
-            txt_login.fill(credentials.sn_user_name)
-            txt_pwd.fill(credentials.sn_user_pwd)
 
-
-            if self.isElementsPresent("//button[text()='Log in']",5_00):
-                self.click_element("//button[text()='Log in']")
 
     def take_screenshot_and_save(self, folder_path, file_name="screenshot.png"):
         # Ensure the folder exists
@@ -246,4 +238,13 @@ class Util_playwright():
         # Take screenshot and save it
         self.page.screenshot(path=file_path)
         print(f"Screenshot saved at: {file_path}")
+    def serviceNowLogin(self,user_name,pwd):
+            txt_login = self.page.locator("id=user_name")
+            txt_pwd = self.page.locator("id=user_password")
+            txt_login.fill(credentials.sn_user_name)
+            txt_pwd.fill(credentials.sn_user_pwd)
+
+
+            if self.isElementsPresent("//button[text()='Log in']",5_00):
+                self.click_element("//button[text()='Log in']")
 

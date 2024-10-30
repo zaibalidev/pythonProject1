@@ -22,7 +22,9 @@ with sync_playwright() as playwright:
 
 
     user_list=["hr.agent.usa","hr.agent.france"]
+
     #playwrightmodel.repeatImpersonatedUsers(user_list, case_list, url)
+    page.wait_for_timeout(10000)
     for impersonate_user in range(len(user_list)):
         if playwrightmodel.isImpersonated(user_list[impersonate_user]):
             print("user found")
